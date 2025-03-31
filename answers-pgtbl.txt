@@ -1,0 +1,6 @@
+page table test
+Câu hỏi: Những system call khác trong xv6 có thể được tăng tốc bằng cách sử dụng trang chia sẻ này? Hãy giải thích.
+Trả lời: Ngoài system call getpid, ta có thể tăng tốc system call uptime bằng cách sử dụng trang chia sẻ chỉ đọc. System call uptime trả về số tick (số lần ngắt hẹn giờ) đã trôi qua kể từ khi hệ thống được khởi động. Vì đây là một biến trạng thái đơn giản do kernel duy trì và system call uptime chỉ thực hiện truy xuất trên biến trạng thái này nên nó có thể được tăng tốc bằng cách sử dụng trang chia sẻ chỉ đọc.
+Đặc điểm chung của các system call có thể được tăng tốc bằng cách sử dụng trang chia sẻ chỉ đọc: 
+- Thông tin chỉ đọc: Các system call này chủ yếu trả về thông tin trạng thái hoặc dữ liệu không thay đổi (hoặc thay đổi rất ít), chẳng hạn như PID, uptime, hoặc các thông số hệ thống. 
+- Không yêu cầu xử lý phức tạp: Chúng không thực hiện các phép tính hay xử lý logic phức tạp, mà chỉ đơn giản là truy xuất dữ liệu đã được kernel duy trì.
